@@ -1,5 +1,6 @@
 package com.ransya.listbukudongeng.ui.listbuku
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import com.ransya.listbukudongeng.R
 import com.ransya.listbukudongeng.data.listBook
 import com.ransya.listbukudongeng.databinding.ActivityListBukuBinding
 import com.ransya.listbukudongeng.ui.listbuku.adapter.ListBukuAdapter
+import com.ransya.listbukudongeng.ui.profile.ProfileActivity
 
 class ListBukuActivity : AppCompatActivity() {
 
@@ -36,6 +38,11 @@ class ListBukuActivity : AppCompatActivity() {
                 adapter.setItemBook(listBook)
                 adapter.notifyDataSetChanged()
                 swipeRefresh.isRefreshing = false
+            }
+
+            siProfile.setOnClickListener {
+                val intent = Intent(this@ListBukuActivity, ProfileActivity::class.java)
+                startActivity(intent)
             }
 
         }

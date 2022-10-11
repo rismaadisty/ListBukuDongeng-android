@@ -2,4 +2,8 @@
     <string name="app_name">List Buku Dongeng</string>
 
     <string name="txt_splashscreen">Splash screen</string>
+    <string name="txt_profile">Profile</string>
+    <string name="txt_name_own">Risma Adisty N</string>
+    <string name="txt_message_profile">Pacar Song Jong Ki</string>
+    <string name="txt_logout">Logout</string>
 </resources>
