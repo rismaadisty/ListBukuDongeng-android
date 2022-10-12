@@ -10,13 +10,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ransya.listbukudongeng.R
 import com.ransya.listbukudongeng.data.listBook
 import com.ransya.listbukudongeng.databinding.ActivityListBukuBinding
+import com.ransya.listbukudongeng.model.Book
+import com.ransya.listbukudongeng.ui.detail.DetailBookActivity
 import com.ransya.listbukudongeng.ui.listbuku.adapter.ListBukuAdapter
+import com.ransya.listbukudongeng.ui.listbuku.adapter.ListBukuNewAdapter
 import com.ransya.listbukudongeng.ui.profile.ProfileActivity
 
 class ListBukuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListBukuBinding
     private val adapter by lazy { ListBukuAdapter() }
+    private val newAdapter by lazy { ListBukuNewAdapter().apply {
+        onClickItem = { data ->
+            handleOnClick(data)
+
+        }
+    } }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,12 +42,14 @@ class ListBukuActivity : AppCompatActivity() {
         binding.run {
             val layoutManager = LinearLayoutManager(this@ListBukuActivity, RecyclerView.VERTICAL,false)
             rvBook.layoutManager = layoutManager
-            rvBook.adapter = adapter
-            adapter.setItemBook(listBook)
+            rvBook.adapter = newAdapter
+//            adapter.setItemBook(listBook)
+            newAdapter.submitList(listBook)
 
             swipeRefresh.setOnRefreshListener {
-                adapter.setItemBook(listBook)
-                adapter.notifyDataSetChanged()
+//                adapter.setItemBook(listBook)
+//                adapter.notifyDataSetChanged()
+                newAdapter.submitList(listBook)
                 swipeRefresh.isRefreshing = false
             }
 
@@ -47,4 +60,15 @@ class ListBukuActivity : AppCompatActivity() {
 
         }
     }
+
+    private fun handleOnClick(data: Book) {
+        val intent = Intent(this@ListBukuActivity, DetailBookActivity::class.java)
+        intent.putExtra(KEY_DATA, data)
+        startActivity(intent)
+    }
+
+    companion object {
+        const val KEY_DATA = "key_data"
+    }
+
 }
